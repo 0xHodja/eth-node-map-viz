@@ -92,6 +92,7 @@ const App = () => {
   const chartComponent = useRef();
 
   const [showModal, setShowModal] = useState(false);
+  const [showModalCaveats, setShowModalCaveats] = useState(false);
 
   // on load get data
   useEffect(() => {
@@ -490,6 +491,10 @@ const App = () => {
     setShowModal(false);
   };
 
+  const handleCloseCaveats = () => {
+    setShowModalCaveats(false);
+  };
+
   highchartsMap(Highcharts);
 
   return (
@@ -566,6 +571,18 @@ const App = () => {
             </i>
           </div>
         </div>
+        <div className="row pt-2">
+          <div className="col text-center">
+            <div
+              className="btn btn-sm btn-outline-danger"
+              onClick={() => {
+                setShowModalCaveats(true);
+              }}
+            >
+              Assumptions and Notes
+            </div>
+          </div>
+        </div>
         <div className="row">
           <div className="col d-flex justify-content-center align-middle">
             {dataLoading ? (
@@ -625,6 +642,21 @@ const App = () => {
             <li>then divides it by the standard deviation</li>
           </ul>
           It intends to provide a metric to show whether a country is above or below the average in terms of the distribution.
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showModalCaveats} onHide={handleCloseCaveats} centered>
+        <Modal.Body>
+          <p>
+            <b>Assumptions and Caveats</b>
+          </p>
+          <ul>
+            <li>This is primarily intended to be informative, and not an insanely precise analysis</li>
+            <li>Data is only as accurate as the geocoding of IP addresses allows</li>
+            <li>Some datacenters operate many nodes, so there may be inaccuracies drawing conclusions about where the node operators live</li>
+            <li>World Bank unfortunately does not recognise some countries like Taiwan, so when joining the data there are some discrepancies e.g. Taiwanese nodes are not plotted as a result</li>
+            <li>Data is just a static snapshot in time</li>
+          </ul>
         </Modal.Body>
       </Modal>
     </>
