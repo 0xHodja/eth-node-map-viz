@@ -389,6 +389,7 @@ const App = () => {
       newMapOptions.colorAxis.maxColor = undefined;
       newMapOptions.colorAxis.stops = [
         [0, "#ff0000"],
+        [0.35, "#ff0000"],
         [0.5, "#ffffff"],
         [1, "#0000ff"],
       ];
@@ -428,6 +429,7 @@ const App = () => {
       newMapOptions.colorAxis.maxColor = undefined;
       newMapOptions.colorAxis.stops = [
         [0, "#ff0000"],
+        [0.35, "#ff0000"],
         [0.5, "#ffffff"],
         [1, "#0000ff"],
       ];
@@ -467,6 +469,7 @@ const App = () => {
       newMapOptions.colorAxis.maxColor = undefined;
       newMapOptions.colorAxis.stops = [
         [0, "#ff0000"],
+        [0.35, "#ff0000"],
         [0.5, "#ffffff"],
         [1, "#0000ff"],
       ];
