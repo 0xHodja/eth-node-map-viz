@@ -655,6 +655,7 @@ const App = () => {
             <li>Data is only as accurate as the geocoding of IP addresses allows</li>
             <li>Some datacenters operate many nodes, so there may be inaccuracies drawing conclusions about where the node operators live</li>
             <li>World Bank unfortunately does not recognise some countries like Taiwan, so when joining the data there are some discrepancies e.g. Taiwanese nodes are not plotted as a result</li>
+            <li>Reverse geocoding was done with the python library "geopandas" on "naturalearth_lowres" which may differ slightly to other geocoding shapefiles</li>
             <li>Data is just a static snapshot in time</li>
           </ul>
         </Modal.Body>
