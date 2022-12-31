@@ -93,6 +93,7 @@ const App = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showModalCaveats, setShowModalCaveats] = useState(false);
+  const [comment, setComment] = useState("");
 
   // on load get data
   useEffect(() => {
@@ -184,6 +185,7 @@ const App = () => {
       newMapOptions.colorAxis.type = "logarithmic";
       newMapOptions.tooltip.pointFormat = "Country: {point.name}<br> Nodes: {point.value}";
       setMapOptions(newMapOptions);
+      setComment("Nodes count is high in western countries. Lacking in Africa and Middle Eastern Countries.");
     } else if (mapType == 2) {
       //// 2 -------------------------------------------------------------------------------------
       chartData = chartData.map((c) => {
@@ -213,6 +215,7 @@ const App = () => {
       newMapOptions.colorAxis.type = "logarithmic";
       newMapOptions.tooltip.pointFormat = "Country: {point.name}<br> GDP: {point.value} $bn USD";
       setMapOptions(newMapOptions);
+      setComment(" ");
     } else if (mapType == 3) {
       //// 3 -------------------------------------------------------------------------------------
       chartData = chartData.map((c) => {
@@ -242,6 +245,7 @@ const App = () => {
       newMapOptions.colorAxis.type = "logarithmic";
       newMapOptions.tooltip.pointFormat = "Country: {point.name}<br> Land Area: {point.value} km²";
       setMapOptions(newMapOptions);
+      setComment(" ");
     } else if (mapType == 4) {
       //// 4 -------------------------------------------------------------------------------------
       chartData = chartData.map((c) => {
@@ -271,6 +275,7 @@ const App = () => {
       newMapOptions.colorAxis.type = "logarithmic";
       newMapOptions.tooltip.pointFormat = "Country: {point.name}<br> Population: {point.value}";
       setMapOptions(newMapOptions);
+      setComment(" ");
     } else if (mapType == 5) {
       //// 5 -------------------------------------------------------------------------------------
       chartData = chartData.map((c) => {
@@ -300,6 +305,7 @@ const App = () => {
       newMapOptions.colorAxis.type = "logarithmic";
       newMapOptions.tooltip.pointFormat = "Country: {point.name}<br> Value: {point.value}";
       setMapOptions(newMapOptions);
+      setComment("Of the metrics shown, strongest correlation is between GDP and node count");
     } else if (mapType == 6) {
       //// 6 -------------------------------------------------------------------------------------
       chartData = chartData.map((c) => {
@@ -329,6 +335,7 @@ const App = () => {
       newMapOptions.colorAxis.type = "logarithmic";
       newMapOptions.tooltip.pointFormat = "Country: {point.name}<br> Value: {point.value}";
       setMapOptions(newMapOptions);
+      setComment("Singapore has the highest node density by land area.");
     } else if (mapType == 7) {
       //// 7 -------------------------------------------------------------------------------------
       chartData = chartData.map((c) => {
@@ -358,6 +365,7 @@ const App = () => {
       newMapOptions.colorAxis.type = "logarithmic";
       newMapOptions.tooltip.pointFormat = "Country: {point.name}<br> Value: {point.value}";
       setMapOptions(newMapOptions);
+      setComment("Finland has the highest nodes per million people.");
     } else if (mapType == 8) {
       //// 8 -------------------------------------------------------------------------------------
       chartData = chartData.map((c) => {
@@ -398,6 +406,7 @@ const App = () => {
       newMapOptions.colorAxis.type = "linear";
       newMapOptions.tooltip.pointFormat = "Country: {point.name}<br> #Std Dev from mean: {point.value}";
       setMapOptions(newMapOptions);
+      setComment("Finland and Singapore have highest nodes for their GDP. Note: Datacenter locations will impact this significantly.");
     } else if (mapType == 9) {
       //// 9 -------------------------------------------------------------------------------------
       chartData = chartData.map((c) => {
@@ -430,14 +439,16 @@ const App = () => {
       newMapOptions.colorAxis.maxColor = undefined;
       newMapOptions.colorAxis.stops = [
         [0, "#ff0000"],
-        [0.35, "#ff0000"],
+        [0.45, "#ff0000"],
         [0.5, "#ffffff"],
+        [0.55, "#ffffff"],
         [1, "#0000ff"],
       ];
       newMapOptions.legend.title.text = "Nodes per 1,000,000 km² - number of stdevs from mean";
       newMapOptions.colorAxis.type = "linear";
       newMapOptions.tooltip.pointFormat = "Country: {point.name}<br> #Std Dev from mean: {point.value}";
       setMapOptions(newMapOptions);
+      setComment("Concentration of nodes in Singapore by land area is very high (>16 stdev), pushing other countries down relatively. Then some European countries in the lead after that.");
     } else if (mapType == 10) {
       //// 10 -------------------------------------------------------------------------------------
       chartData = chartData.map((c) => {
@@ -478,6 +489,7 @@ const App = () => {
       newMapOptions.colorAxis.type = "linear";
       newMapOptions.tooltip.pointFormat = "Country: {point.name}<br> #Std Dev from mean: {point.value}";
       setMapOptions(newMapOptions);
+      setComment("Western countries tend to have higher than average node counts per person");
     }
     chartData.sort((a, b) => (a.value < b.value ? 1 : -1));
     setTableData(chartData);
@@ -596,6 +608,12 @@ const App = () => {
         </div>
       </div>
 
+      <div className="container">
+        <div className="row pb-3">
+          <div className="col text-center">{comment}</div>
+        </div>
+      </div>
+
       <div className="container" style={{ maxWidth: "600px" }}>
         <div className="row">
           <div className="col">
@@ -655,7 +673,7 @@ const App = () => {
             <li>Data is only as accurate as the geocoding of IP addresses allows</li>
             <li>Some datacenters operate many nodes, so there may be inaccuracies drawing conclusions about where the node operators live</li>
             <li>World Bank unfortunately does not recognise some countries like Taiwan, so when joining the data there are some discrepancies e.g. Taiwanese nodes are not plotted as a result</li>
-            <li>Reverse geocoding was done with the python library "geopandas" on "naturalearth_lowres" which may differ slightly to other geocoding shapefiles - e.g. singapore got mapped to Malaysia due to resolution</li>
+            <li>Reverse geocoding was done with the python library "geopandas" on "naturalearth_lowres" which may differ slightly to other geocoding shapefiles.</li>
             <li>Data is just a static snapshot in time</li>
           </ul>
         </Modal.Body>

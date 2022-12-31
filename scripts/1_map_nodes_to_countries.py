@@ -7,12 +7,19 @@ import json
 
 # %% query nodewatch
 url = "https://nodewatch.chainsafe.io/query"
-payload = json.dumps({"query": "query GetHeatmap {\n  getHeatmapData {\n    networkType\n    clientType\n    syncStatus\n    latitude\n    longitude\n  }\n}\n"})
+payload = json.dumps({"query": "query GetHeatmap {\n  getHeatmapData {\n    networkType\n    clientType\n    syncStatus\n    latitude\n    longitude\n  }\n}\n"})  # heatmap
 headers = {'Content-Type': 'application/json'}
 response = requests.request("POST", url, headers=headers, data=payload)
 data = json.loads(response.text)
 data = data['data']['getHeatmapData']
 df = pd.DataFrame(data)
+
+# %% get pre-aggregated data
+payload_country = json.dumps({"query": "query GetNodesByCountries {\n  aggregateByCountry {\n    name\n    count\n  }\n}\n"})  # node summary -- we'll use this one now
+response = requests.request("POST", url, headers=headers, data=payload)
+data_country = json.loads(response.text)
+data_country = data_country['data']['aggregateByCountry']
+pd.DataFrame(data_country).to_json('./node_agg.json', orient='records')
 
 # %% reverse geocoding
 world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
